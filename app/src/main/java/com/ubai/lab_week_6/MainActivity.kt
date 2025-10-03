@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ubai.lab_week_6.model.CatModel
 import com.ubai.lab_week_6.model.Gender
 import com.ubai.lab_week_6.model.CatBreed
+import androidx.recyclerview.widget.ItemTouchHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = catAdapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val itemTouchHelper = ItemTouchHelper(catAdapter.swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         // Data kucing (tetap 3 dulu, nanti di assignment tambah jadi 10+)
         catAdapter.setData(

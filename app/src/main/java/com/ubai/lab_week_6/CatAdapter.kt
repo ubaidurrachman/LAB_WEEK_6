@@ -2,6 +2,7 @@ package com.ubai.lab_week_6
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ubai.lab_week_6.model.CatModel
 
@@ -19,6 +20,11 @@ class CatAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeItem(position: Int) {
+        cats.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
         val view = layoutInflater.inflate(R.layout.item_list, parent, false)
         return CatViewHolder(view, imageLoader, onClickListener)
@@ -29,7 +35,20 @@ class CatAdapter(
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
         holder.bindData(cats[position])
     }
-    interface OnClickListener {
-        fun onItemClick(cat: CatModel)
+
+    inner class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean = false
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            removeItem(position)
+        }
     }
+
+    val swipeToDeleteCallback = SwipeToDeleteCallback()
 }
