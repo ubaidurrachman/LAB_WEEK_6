@@ -1,11 +1,12 @@
 package com.ubai.lab_week_6
-import com.ubai.lab_week_6.model.CatModel
-import com.ubai.lab_week_6.model.Gender
-import com.ubai.lab_week_6.model.CatBreed
+
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ubai.lab_week_6.model.CatModel
+import com.ubai.lab_week_6.model.Gender
+import com.ubai.lab_week_6.model.CatBreed
 
 private const val FEMALE_SYMBOL = "\u2640"
 private const val MALE_SYMBOL = "\u2642"
@@ -13,7 +14,8 @@ private const val UNKNOWN_SYMBOL = "?"
 
 class CatViewHolder(
     private val containerView: View,
-    private val imageLoader: ImageLoader
+    private val imageLoader: ImageLoader,
+    private val onClickListener: OnClickListener
 ) : RecyclerView.ViewHolder(containerView) {
 
     private val catBiographyView: TextView by lazy { containerView.findViewById(R.id.cat_biography) }
@@ -23,6 +25,9 @@ class CatViewHolder(
     private val catPhotoView: ImageView by lazy { containerView.findViewById(R.id.cat_photo) }
 
     fun bindData(cat: CatModel) {
+
+        containerView.setOnClickListener { onClickListener.onItemClick(cat) }
+
         imageLoader.loadImage(cat.imageUrl, catPhotoView)
         catNameView.text = cat.name
         catBreedView.text = when (cat.breed) {
@@ -37,5 +42,10 @@ class CatViewHolder(
             Gender.Male -> MALE_SYMBOL
             else -> UNKNOWN_SYMBOL
         }
+    }
+
+
+    interface OnClickListener {
+        fun onItemClick(cat: CatModel)
     }
 }

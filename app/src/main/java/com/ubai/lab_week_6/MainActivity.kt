@@ -1,18 +1,29 @@
 package com.ubai.lab_week_6
-import com.ubai.lab_week_6.model.CatModel
-import com.ubai.lab_week_6.model.Gender
-import com.ubai.lab_week_6.model.CatBreed
+
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ubai.lab_week_6.model.CatModel
+import com.ubai.lab_week_6.model.Gender
+import com.ubai.lab_week_6.model.CatBreed
 
 class MainActivity : AppCompatActivity() {
 
     private val recyclerView: RecyclerView by lazy { findViewById(R.id.recycler_view) }
+
     private val catAdapter by lazy {
-        CatAdapter(layoutInflater, GlideImageLoader(this))
+        CatAdapter(
+            layoutInflater,
+            GlideImageLoader(this),
+            object : CatViewHolder.OnClickListener {
+                override fun onItemClick(cat: CatModel) {
+                    showSelectionDialog(cat)
+                }
+            }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = catAdapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        // Data kucing (tetap 3 dulu, nanti di assignment tambah jadi 10+)
         catAdapter.setData(
             listOf(
                 CatModel(
@@ -47,5 +59,13 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         )
+    }
+
+    private fun showSelectionDialog(cat: CatModel) {
+        AlertDialog.Builder(this)
+            .setTitle("Cat Selected")
+            .setMessage("You have selected cat ${cat.name}")
+            .setPositiveButton("OK") { _, _ -> }
+            .show()
     }
 }
