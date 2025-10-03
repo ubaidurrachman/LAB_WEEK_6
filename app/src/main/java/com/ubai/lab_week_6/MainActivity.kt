@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val itemTouchHelper = ItemTouchHelper(catAdapter.swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        // Data kucing (tetap 3 dulu, nanti di assignment tambah jadi 10+)
+
         catAdapter.setData(
             listOf(
                 CatModel(
@@ -59,9 +59,61 @@ class MainActivity : AppCompatActivity() {
                     "Curious George",
                     "Award winning investigator",
                     "https://cdn2.thecatapi.com/images/bar.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.AmericanCurl,
+                    "Luna",
+                    "Mysterious night stalker",
+                    "https://cdn2.thecatapi.com/images/5tx.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.BalineseJavanese,
+                    "Simba",
+                    "King of the couch",
+                    "https://cdn2.thecatapi.com/images/8cj.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.ExoticShorthair,
+                    "Oliver",
+                    "Food enthusiast",
+                    "https://cdn2.thecatapi.com/images/3bk.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.AmericanCurl,
+                    "Mittens",
+                    "Professional napper",
+                    "https://cdn2.thecatapi.com/images/4mn.jpg"
+                ),
+                CatModel(
+                    Gender.Unknown,
+                    CatBreed.BalineseJavanese,
+                    "Shadow",
+                    "Always watching",
+                    "https://cdn2.thecatapi.com/images/9pq.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.ExoticShorthair,
+                    "Leo",
+                    "Gentle giant",
+                    "https://cdn2.thecatapi.com/images/2rs.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.AmericanCurl,
+                    "Bella",
+                    "Loves sunbeams",
+                    "https://cdn2.thecatapi.com/images/1tu.jpg"
                 )
             )
         )
+
+
+
     }
 
     private fun showSelectionDialog(cat: CatModel) {
